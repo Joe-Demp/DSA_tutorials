@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Stack;
 
 /**
@@ -7,6 +11,7 @@ import java.util.Stack;
  *
  */
 public class RussianPeasant {
+	private static final int MAX_ITs = 1000;
 	/**
 	 * Multiplies two numbers together by the Russian Peasant's algorithm<br>
 	 * 	Only works for two positive numbers, or one positive one negative for now
@@ -46,11 +51,53 @@ public class RussianPeasant {
 			return sum;
 		}
 	}
+	
+	public static long timeMultiply(long operand, int iterations) {
+		long startTime = System.nanoTime();
+		for (int i = 0; i < iterations; ++i)
+			multiply(operand, operand);
+		long endTime = System.nanoTime();
+		
+		return endTime - startTime;
+	}
 
 	public static void main(String[] args) {
-		System.out.println(multiply(237, 503));
-		System.out.println(multiply(-237, 503));
-		System.out.println(multiply(237, -503));
+		File f = new File("multiplyTimes.csv");
+		FileWriter fStream = null;
+		
+		long testResult = -1;
+		
+		try {
+			fStream = new FileWriter(f);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+//		start writing file
+		try {
+			fStream.write("n, t(n),\n");
+			
+//			numbers from 100 to 10000000 in multiples of 10 are passed to multiply
+//			through the timing function
+			for (int i = 100; i <= 10000000; i += 10) {
+				testResult = timeMultiply(i, MAX_ITs);
+				fStream.write(i + ", " + testResult + ",\n");
+				System.out.println(i + ", " + testResult + ",\n");
+			}
+			
+			
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		try {
+			fStream.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
