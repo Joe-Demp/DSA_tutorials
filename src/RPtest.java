@@ -14,40 +14,12 @@ import org.junit.Test;
 public class RPtest {
 
 	/**
-	 * @throws java.lang.Exception
-	 */
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@After
-	public void tearDown() throws Exception {
-	}
-
-	/**
 	 * Test method for {@link RussianPeasant#multiply(long, long)}.
 	 * Tests the regular case: a < b and 0 < a
 	 */
 	@Test
 	public final void testMultiply1() {
-		assertEquals("Test 1", 199211L, RussianPeasant.multiply(237L, 503L));
+		assertEquals("Test 1", 119211L, RussianPeasant.multiply(237L, 503L));
 	}
 	
 	/**
@@ -56,7 +28,7 @@ public class RPtest {
 	 */
 	@Test
 	public final void testMultiply2() {
-		assertEquals("Test 2", 199211L, RussianPeasant.multiply(503L, 237L));
+		assertEquals("Test 2", 119211L, RussianPeasant.multiply(503L, 237L));
 	}
 	
 	/**

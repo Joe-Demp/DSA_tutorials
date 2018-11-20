@@ -45,8 +45,7 @@ public class RussianPeasant {
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		System.out.println(multiply(237, 503));
 	}
 
 }
