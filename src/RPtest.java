@@ -48,5 +48,32 @@ public class RPtest {
 	public final void testMultiply4() {
 		assertEquals("Test 4", 0, RussianPeasant.multiply(0, 503L));
 	}
+	
+	/**
+	 * Test method for {@link RussianPeasant#multiply(long, long)}.
+	 * Tests the case: a = 0
+	 */
+	@Test
+	public final void testNegativeMultiply1() {
+		assertEquals("Test 5", -119211L, RussianPeasant.multiply(-237L, 503L));
+	}
+	
+	/**
+	 * Test method for {@link RussianPeasant#multiply(long, long)}.
+	 * Tests the case: a = 0
+	 */
+	@Test
+	public final void testNegativeMultiply2() {
+		assertEquals("Test 5", -119211L, RussianPeasant.multiply(237L, -503L));
+	}
+	
+//	/**
+//	 * Test method for {@link RussianPeasant#multiply(long, long)}.
+//	 * Tests the case: a = 0
+//	 */
+//	@Test
+//	public final void testNegativeMultiply3() {
+//		assertEquals("Test 5", 119211L, RussianPeasant.multiply(-237L, -503L));
+//	}
 
 }
