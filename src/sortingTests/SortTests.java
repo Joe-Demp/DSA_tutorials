@@ -11,6 +11,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import sortingClasses.BubbleSort;
+import sortingClasses.MergeSort;
 import sortingClasses.SelectionSort;
 
 /**
@@ -61,6 +62,12 @@ public class SortTests {
 	@Test
 	public final void testSelectionSort() {
 		SelectionSort.sort(sortingArray);
+		assertArrayEquals(sortedArray, sortingArray);
+	}
+	
+	@Test
+	public final void testMergeSort() {
+		MergeSort.sort(sortingArray, 0, sortingArray.length - 1);
 		assertArrayEquals(sortedArray, sortingArray);
 	}
 
