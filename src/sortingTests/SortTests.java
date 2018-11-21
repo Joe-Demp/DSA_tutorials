@@ -11,6 +11,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import sortingClasses.BubbleSort;
+import sortingClasses.SelectionSort;
 
 /**
  * @author demps
@@ -18,12 +19,12 @@ import sortingClasses.BubbleSort;
  */
 public class SortTests {
 	
-	public final int ARRAY_SIZE = 1000;
-	public Integer [] sortingArray;
-	public Integer [] sortedArray;
+	public static final int ARRAY_SIZE = 1000;
+	public static Integer [] sortingArray;
+	public static Integer [] sortedArray;
 
 	@BeforeClass
-	public void setUpBeforeClass() throws Exception {
+	public static void setUpBeforeClass() throws Exception {
 		sortedArray = new Integer[ ARRAY_SIZE ];
 		for (int i = 0; i < ARRAY_SIZE; ++i)
 			sortedArray[ i ] = i;
@@ -47,12 +48,19 @@ public class SortTests {
 		sortingArray = null;
 	}
 
+	
 	/**
 	 * Test method for {@link sortingClasses.BubbleSort#sort(java.lang.Integer[])}.
 	 */
 	@Test
-	public final void testSort() {
+	public final void testBubbleSort() {
 		BubbleSort.sort(sortingArray);
+		assertArrayEquals(sortedArray, sortingArray);
+	}
+	
+	@Test
+	public final void testSelectionSort() {
+		SelectionSort.sort(sortingArray);
 		assertArrayEquals(sortedArray, sortingArray);
 	}
 
