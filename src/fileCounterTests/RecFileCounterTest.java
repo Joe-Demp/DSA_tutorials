@@ -19,16 +19,16 @@ import filecounter.RecFileCounter;
  *
  */
 public class RecFileCounterTest {
-	public String testDirectory;
-	public String javaFile;
-	public String txtFile;	
+	public static String testDirectory;
+	public static String javaFile;
+	public static String txtFile;	
 
 	/**
 	 * Sets up the Strings for the method calls: directory, java and txt 
 	 * @throws Exception
 	 */
 	@BeforeClass
-	public void setUpBeforeClass() throws Exception {
+	public static void setUpBeforeClass() throws Exception {
 		testDirectory = new String("C:/Users/demps/Desktop/cf-tester");
 		javaFile = new String("java");
 		txtFile = new String("txt");

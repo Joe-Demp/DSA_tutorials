@@ -4,6 +4,7 @@
 package filecounter;
 
 import java.io.File;
+import javax.swing.JOptionPane;
 
 /**
  * @author demps
@@ -28,14 +29,14 @@ public class RecFileCounter extends FileCounter {
 	 * Counts all the files of a given type in a given directory
 	 * @param directory a string indicating a directory on you computer
 	 * @param fileType a string giving the extension of the file type you're looking for<br>
-	 * 	e.g. "*.java" for java source files
+	 * 	e.g. "java" for java source files
 	 * @return the number of files of type fileType in directory
 	 */
 	public static int countFiles(String directory, String fileType) {
 		int count = 0;
 		//	TODO elaborate on this check; add checking for invalid fileType Strings
 		if ( !(fileType.isEmpty() || fileType.startsWith(".")) )		//	Formats the fileType to a proper extension e.g. .java or .txt
-			fileType = "." + fileType;
+			fileType = "." + fileType;									//		if it hasn't already been formatted
 		
 		//	take the input directory and create a File object
 		//	then generate a list of the files in the directory
@@ -47,8 +48,8 @@ public class RecFileCounter extends FileCounter {
 		for( String fString : dirList ) {
 			File myFile = new File( directory + "/" + fString );
 			if ( myFile.isFile() ) {
-				//	TODO check if it's the correct type
-				//		then increment count
+				//	check if it's the correct type
+				//	then increment count
 				if ( fString.endsWith(fileType) ) {
 //					System.out.println("Block entered");
 					count++;
@@ -67,19 +68,53 @@ public class RecFileCounter extends FileCounter {
 		
 		return count;
 	}
+	
+	/**
+	 * Function to take in a String representing a path and alter any special symbols e.g. \ or "
+	 * @param path the String of the path you'd like to sanitize
+	 */
+	//	TODO fix this method: doesn't fix backslash characters
+	public static String sanitize(String path) {
+		//	trailing whitespace
+		path.trim();
+		
+		//	quotation marks
+		if ( path.startsWith("\"") )
+			path = path.substring(1);
+		if ( path.endsWith("\"") )
+			path = path.substring(0, path.length() - 1 );
+		
+		//	back-slashes
+		path.replaceAll("\\\\", "/");
+		
+		return path;
+	}
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		int x;
-		x = countFiles( "C:/Users/demps/Desktop/cf-tester", new String("java"));
-		System.out.println("\nCount java = " + x);
-		x = countFiles( "C:/Users/demps/Desktop/cf-tester", new String("txt"));
-		System.out.println("Count txt = " + x);
+		String path = "\"C:\\Users\\demps\\Desktop\\cf-tester\"";
+//		
+//		x = countFiles( "C:/Users/demps/Desktop/cf-tester", new String("java"));
+//		System.out.println("\nCount java = " + x);
+//		x = countFiles( "C:/Users/demps/Desktop/cf-tester", new String("txt"));
+//		System.out.println("Count txt = " + x);
+//		
+//		x = countFiles( "C:/Users/demps/Desktop/cf-tester");
+//		System.out.println("Count = " + x);
 		
-		x = countFiles( "C:/Users/demps/Desktop/cf-tester");
-		System.out.println("Count = " + x);
+		//	Testing Sanitize
+		System.out.println( path );
+		path = sanitize( path );
+		System.out.println( path );
+		
+		//	JOptionPane functionality
+//		path = JOptionPane.showInputDialog("Enter a path to a directory");
+//		System.out.println( path );
+//		path = sanitize(path);
+//		System.out.println(path);
 	}
 
 }
