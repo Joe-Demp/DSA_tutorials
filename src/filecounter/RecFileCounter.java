@@ -19,7 +19,9 @@ public class RecFileCounter extends FileCounter {
 	public static int countFiles(String directory) {
 		//	TODO find out if there is a way to get this method to call countFiles(String, String)
 		//		perhaps passing an empty String as fileType?
-		return -1;
+		//	Note: passing an empty string to this method will count all files
+		//		since an empty string to the String.endsWith() method always returns true
+		return countFiles(directory, "");
 	}
 	
 	/**
@@ -30,8 +32,10 @@ public class RecFileCounter extends FileCounter {
 	 * @return the number of files of type fileType in directory
 	 */
 	public static int countFiles(String directory, String fileType) {
-		//	TODO fill in this method
 		int count = 0;
+		//	TODO elaborate on this check; add checking for invalid fileType Strings
+		if ( !(fileType.isEmpty() || fileType.startsWith(".")) )		//	Formats the fileType to a proper extension e.g. .java or .txt
+			fileType = "." + fileType;
 		
 		//	take the input directory and create a File object
 		//	then generate a list of the files in the directory
@@ -41,25 +45,24 @@ public class RecFileCounter extends FileCounter {
 		//	iterate through the list, counting files 
 		//		and further investigating directories
 		for( String fString : dirList ) {
-			//	TODO check if this works: might not create a File object out of the fString (this is just the file name, might need to add on path)
 			File myFile = new File( directory + "/" + fString );
 			if ( myFile.isFile() ) {
 				//	TODO check if it's the correct type
 				//		then increment count
-				count++;
+				if ( fString.endsWith(fileType) ) {
+//					System.out.println("Block entered");
+					count++;
+				}
 			} 
 			else if ( myFile.isDirectory() ) {
-				//	construct a new string to pass to countFiles, recursive call
-				//	Note: fString is the name of the directory only
-//				TODO remove this
-//				String subDirectory = new String(directory + "/" + fString);
-				
+				//	inspect this new directory (passing it as a String to the function (not a file))
 				//	add the result of the call to count
 				count += countFiles( myFile.getPath(), fileType );
 			}	//	end if
-			
+		
 //			DEBUG
-//			System.out.println( fString );
+//			System.out.println(fString);
+			
 		}	//	end for
 		
 		return count;
@@ -70,8 +73,12 @@ public class RecFileCounter extends FileCounter {
 	 */
 	public static void main(String[] args) {
 		int x;
-		x = countFiles( "C:/Users/demps/Desktop/cf-tester", new String());
+		x = countFiles( "C:/Users/demps/Desktop/cf-tester", new String("java"));
+		System.out.println("\nCount java = " + x);
+		x = countFiles( "C:/Users/demps/Desktop/cf-tester", new String("txt"));
+		System.out.println("Count txt = " + x);
 		
+		x = countFiles( "C:/Users/demps/Desktop/cf-tester");
 		System.out.println("Count = " + x);
 	}
 
