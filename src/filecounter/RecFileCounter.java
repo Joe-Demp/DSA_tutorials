@@ -41,15 +41,25 @@ public class RecFileCounter extends FileCounter {
 		//	iterate through the list, counting files 
 		//		and further investigating directories
 		for( String fString : dirList ) {
-			File myFile = new File( fString );
+			//	TODO check if this works: might not create a File object out of the fString (this is just the file name, might need to add on path)
+			File myFile = new File( directory + "/" + fString );
 			if ( myFile.isFile() ) {
-				//	check if it's the correct type
+				//	TODO check if it's the correct type
 				//		then increment count
+				count++;
 			} 
 			else if ( myFile.isDirectory() ) {
 				//	construct a new string to pass to countFiles, recursive call
+				//	Note: fString is the name of the directory only
+//				TODO remove this
+//				String subDirectory = new String(directory + "/" + fString);
+				
 				//	add the result of the call to count
-			}
+				count += countFiles( myFile.getPath(), fileType );
+			}	//	end if
+			
+//			DEBUG
+//			System.out.println( fString );
 		}	//	end for
 		
 		return count;
@@ -59,8 +69,10 @@ public class RecFileCounter extends FileCounter {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		int x;
+		x = countFiles( "C:/Users/demps/Desktop/cf-tester", new String());
+		
+		System.out.println("Count = " + x);
 	}
 
 }
