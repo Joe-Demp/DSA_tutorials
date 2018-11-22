@@ -3,6 +3,8 @@
  */
 package filecounter;
 
+import java.io.File;
+
 /**
  * @author demps
  *
@@ -15,7 +17,8 @@ public class RecFileCounter extends FileCounter {
 	 * @return the number of files in the given directory
 	 */
 	public static int countFiles(String directory) {
-		//	TODO fill in this method
+		//	TODO find out if there is a way to get this method to call countFiles(String, String)
+		//		perhaps passing an empty String as fileType?
 		return -1;
 	}
 	
@@ -28,7 +31,28 @@ public class RecFileCounter extends FileCounter {
 	 */
 	public static int countFiles(String directory, String fileType) {
 		//	TODO fill in this method
-		return -1;
+		int count = 0;
+		
+		//	take the input directory and create a File object
+		//	then generate a list of the files in the directory
+		File thisDirectory = new File( directory );
+		String [] dirList = thisDirectory.list();
+		
+		//	iterate through the list, counting files 
+		//		and further investigating directories
+		for( String fString : dirList ) {
+			File myFile = new File( fString );
+			if ( myFile.isFile() ) {
+				//	check if it's the correct type
+				//		then increment count
+			} 
+			else if ( myFile.isDirectory() ) {
+				//	construct a new string to pass to countFiles, recursive call
+				//	add the result of the call to count
+			}
+		}	//	end for
+		
+		return count;
 	}
 
 	/**
