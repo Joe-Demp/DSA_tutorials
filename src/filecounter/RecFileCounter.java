@@ -96,19 +96,19 @@ public class RecFileCounter extends FileCounter {
 	public static void main(String[] args) {
 		int x;
 		String path = "\"C:\\Users\\demps\\Desktop\\cf-tester\"";
-//		
-//		x = countFiles( "C:/Users/demps/Desktop/cf-tester", new String("java"));
-//		System.out.println("\nCount java = " + x);
-//		x = countFiles( "C:/Users/demps/Desktop/cf-tester", new String("txt"));
-//		System.out.println("Count txt = " + x);
-//		
+		
+		x = countFiles( "C:/Users/demps/Desktop/DSA_1", new String("java"));
+		System.out.println("\nCount java = " + x);
+		x = countFiles( "C:\\Users\\demps\\Desktop\\DSA_1", new String("txt"));
+		System.out.println("Count txt = " + x);
+		
 //		x = countFiles( "C:/Users/demps/Desktop/cf-tester");
 //		System.out.println("Count = " + x);
 		
-		//	Testing Sanitize
-		System.out.println( path );
-		path = sanitize( path );
-		System.out.println( path );
+//		//	Testing Sanitize
+//		System.out.println( path );
+//		path = sanitize( path );
+//		System.out.println( path );
 		
 		//	JOptionPane functionality
 //		path = JOptionPane.showInputDialog("Enter a path to a directory");
