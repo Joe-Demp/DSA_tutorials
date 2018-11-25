@@ -5,9 +5,15 @@ import java.io.File;
 import stack.ListStack;
 
 public class StackFileCounter extends FileCounter {
+	
+	/**
+	 * Returns a count of all of the files in a given directory and all of its sub-directories
+	 * 
+	 * @param directory a String representing the path of the directory you would like to count in
+	 * @return the number of files in directory and all of its sub-directories
+	 */
 	public static int countFiles(String directory) {
-//		TODO fill in this method
-		return -1;
+		return countFiles(directory, "");
 	}
 	
 	/**
