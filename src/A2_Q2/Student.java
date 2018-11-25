@@ -2,6 +2,10 @@ package A2_Q2;
 
 import java.util.PriorityQueue;
 
+/**
+ * A class to represent Students e.g. for a school database
+ * @author 17733691
+ */
 public class Student implements Comparable<Student> {
 	private String name;
 	private int age;
