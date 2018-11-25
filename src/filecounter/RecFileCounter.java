@@ -4,7 +4,6 @@
 package filecounter;
 
 import java.io.File;
-import javax.swing.JOptionPane;
 
 /**
  * @author demps
@@ -95,7 +94,6 @@ public class RecFileCounter extends FileCounter {
 	 */
 	public static void main(String[] args) {
 		int x;
-		String path = "\"C:\\Users\\demps\\Desktop\\cf-tester\"";
 		
 		x = countFiles( "C:/Users/demps/Desktop/DSA_1", new String("java"));
 		System.out.println("\nCount java = " + x);
@@ -104,17 +102,6 @@ public class RecFileCounter extends FileCounter {
 		
 //		x = countFiles( "C:/Users/demps/Desktop/cf-tester");
 //		System.out.println("Count = " + x);
-		
-//		//	Testing Sanitize
-//		System.out.println( path );
-//		path = sanitize( path );
-//		System.out.println( path );
-		
-		//	JOptionPane functionality
-//		path = JOptionPane.showInputDialog("Enter a path to a directory");
-//		System.out.println( path );
-//		path = sanitize(path);
-//		System.out.println(path);
 	}
 
 }
