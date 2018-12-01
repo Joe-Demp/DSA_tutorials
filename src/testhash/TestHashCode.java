@@ -55,9 +55,7 @@ public class TestHashCode {
 		for (int i = 1; i < word.length(); ++i) {
 			code = (code * a) + word.charAt(i);
 		}
-		
-//		if (code < 0) System.out.println("code < 0");
-		
+				
 		return compress(code);
 	}
 	public static int cyclicHashCode(int shift, String word) {
@@ -73,11 +71,11 @@ public class TestHashCode {
 		int skip = Math.max(1, word.length() / 8);
 		for (int i = 0; i < word.length(); i += skip)
 			hash = (hash * 37) + word.charAt(i);
-		return hash;
+		return compress(hash);
 	}
 	public static int compress(int code) {
-		Random rand = new Random();
-		int a = rand.nextInt(P);
+		Random rand = new Random(100);
+		int a = rand.nextInt(P);	//since the random object has been seeded, a and b are constant
 		int b = rand.nextInt(P);
 		
 		code = Math.abs((a*code + b)%P)%TABLE_SIZE;
@@ -96,7 +94,7 @@ public class TestHashCode {
 		}
 		
 		//Report
-		System.out.println("\nFor a = " + a);
+		System.out.println("\nPolynomial For a = " + a);
 		printReport();
 	}
 	public void testCyclic(int shift) {
@@ -108,7 +106,31 @@ public class TestHashCode {
 		}
 		
 		//Report
-		System.out.println("\nFor shift = " + shift);
+		System.out.println("\nCyclic for shift = " + shift);
+		printReport();
+	}
+	public void testOldHash() {
+		//Fill a new HashTable
+		wordHashes = new int[TABLE_SIZE];
+		for (String w : words) {
+			int hCode = oldHashCode(w);
+			wordHashes[hCode]++;
+		}
+		
+		//Report
+		System.out.println("\nFor old hash ");
+		printReport();
+	}
+	public void testNewHash() {
+		//Fill a new HashTable
+		wordHashes = new int[TABLE_SIZE];
+		for (String w : words) {
+			int hCode = compress(w.hashCode());
+			wordHashes[hCode]++;
+		}
+		
+		//Report
+		System.out.println("\nFor new hash ");
 		printReport();
 	}
 	
@@ -165,19 +187,15 @@ public class TestHashCode {
 		
 		//poly a = 17
 		testHC.testPoly(17);
-//		testHC.testHastFunction("polyHashCode", 17);
-//		System.out.println("\nWith a polynomial hashCode, a = 17 :");
-//		testHC.printReport();
-//		
-//		// Trying a smaller prime
-//		testHC.testHastFunction("polyHashCode", 11);
-//		System.out.println("\nWith a polynomial hashCode, a = 11 :");
-//		testHC.printReport();
-//		
-		//TODO shift a = 7
-		testHC.testCyclic(5);
+
+		//shift a = 7
+		testHC.testCyclic(7);
 		
-		//TODO old hash code
+		//old hash code
+		testHC.testOldHash();
+		
+		//new hash code
+		testHC.testNewHash();
 		
 		System.out.println("\nProgramme finished");
 	}
