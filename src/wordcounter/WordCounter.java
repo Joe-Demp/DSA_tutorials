@@ -2,8 +2,10 @@ package wordcounter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Set;
 
 public class WordCounter {
 	private String filename;
@@ -72,19 +74,40 @@ public class WordCounter {
 	 */
 	public String getMax() {
 		Integer highest = -1;
-		String max = null;
+		String maxString = null;
+		Set<String> keys = countOfWords.keySet();
 		
-		return max;
+		for (String s : keys) {
+//			get the value for each key in keys, save the max
+			int x = countOfWords.get(s);
+			if (x > highest) {
+				highest = x;
+				maxString = s;
+			}
+		}
+		
+		return maxString;
 	}
 	
+	/**
+	 * Prints out the top ten most frequent words
+	 */
 	public void reportWords() {
-		//	TODO a series of print statements giving a list of the top ten words
+		String word;
 		System.out.println("***Top Ten Words***");
+		System.out.println("  word : count\n");
+		
+		for (int i = 0; i < 10; ++i) {
+			word = getMax();
+			System.out.println("  " + word + " : " + countOfWords.get(word));
+			countOfWords.remove(word);
+		}
 	}
 
 	public static void main(String[] args) {
 		WordCounter wc = new WordCounter("sample_text.txt");
 		wc.countWordsInFile();
+		wc.reportWords();
 	}
 
 }
