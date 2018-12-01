@@ -16,39 +16,39 @@ public class TestHashCode {
 	private int [] wordHashes;
 	private ArrayList<String> words;
 	private static final int SIZE = 235900;
-	private int [] poly;
 	
 	public TestHashCode() {
 		wordHashes = new int[SIZE];
-		importWords();
-		initPoly();
-	}
-	
-	private void importWords() {
-		File f = new File("word.txt");
+		words = new ArrayList<String>(SIZE);
 		
 		try {
-			Scanner scan = new Scanner(f);
-			
-			while (scan.hasNext()) {
-				String w = scan.next();
-				words.add(w);
-			}
-			scan.close();
+			importWords();
 		} catch (FileNotFoundException fnfe) {
-			fnfe.getStackTrace();
+			fnfe.printStackTrace();
 		}
 	}
-	private void initPoly() {
-		poly = new int[100];
-		Random rand = new Random();
+	
+	private void importWords() throws FileNotFoundException{
+		File f = new File("C:\\Users\\demps\\git\\DSA_tutorials\\words.txt");
 		
-		for (int i : poly)
-			i = 1 + rand.nextInt(100);
+	
+		Scanner scan = new Scanner(f);
+		
+		while (scan.hasNext()) {
+			String w = scan.next();
+			words.add(w);
+		}
+		scan.close();
 	}
 	
 	public int polyHashCode(int a, String word) {
-		return -1;
+		char[] array = word.toCharArray();
+		int code = array[ 0 ];
+		
+		for (int i = 1; i < array.length; ++i)
+			code = (code * a) + array[i];
+		
+		return code;
 	}
 	public int cyclicHashCode(int shift, String word) {
 		return -1;
@@ -92,10 +92,20 @@ public class TestHashCode {
 		System.out.println("The number of collisions is : " + findMax());
 	}
 	
+//	public void testImportWords() {
+//		for (String s : words)
+//			System.out.println(s);
+//	}
+	
 	public static void main(String[] args) {
 		// 	TODO Auto-generated method stub
 		//	TODO take in Strings from words.txt
+//		Imports all the words into the words ArrayList
+		TestHashCode testHC = new TestHashCode();
+		
 		//	TODO call the hashcode methods
+		
+		System.out.println("Programme finished");
 	}
 
 }
