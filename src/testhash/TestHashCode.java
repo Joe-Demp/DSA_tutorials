@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class TestHashCode {
 	private int [] wordHashes = null;
 	private ArrayList<String> words;
-	private static final int TABLE_SIZE = 235003;	//Prime
+	private static final int TABLE_SIZE = 235901;	//Prime
 	private static final int LIST_SIZE = 235900;
 	private static final int P = 100030001;
 	
@@ -50,11 +50,10 @@ public class TestHashCode {
 	 * Static functions to do the calculations for the hashcodes
 	 */
 	public static int polyHashCode(int a, String word) {
-		char[] array = word.toCharArray();
-		int code = array[ 0 ];
+		int code = word.charAt(0);
 		
-		for (int i = 1; i < array.length; ++i) {
-			code = (code * a) + (int)array[i];
+		for (int i = 1; i < word.length(); ++i) {
+			code = (code * a) + word.charAt(i);
 		}
 		
 //		if (code < 0) System.out.println("code < 0");
@@ -70,7 +69,11 @@ public class TestHashCode {
 		return compress(code);
 	}
 	public static int oldHashCode(String word) {
-		return -1;
+		int hash = 0;
+		int skip = Math.max(1, word.length() / 8);
+		for (int i = 0; i < word.length(); i += skip)
+			hash = (hash * 37) + word.charAt(i);
+		return hash;
 	}
 	public static int compress(int code) {
 		Random rand = new Random();
@@ -94,6 +97,18 @@ public class TestHashCode {
 		
 		//Report
 		System.out.println("\nFor a = " + a);
+		printReport();
+	}
+	public void testCyclic(int shift) {
+		//Fill a new HashTable
+		wordHashes = new int[TABLE_SIZE];
+		for (String w : words) {
+			int hCode = cyclicHashCode(shift, w);
+			wordHashes[hCode]++;
+		}
+		
+		//Report
+		System.out.println("\nFor shift = " + shift);
 		printReport();
 	}
 	
@@ -160,6 +175,8 @@ public class TestHashCode {
 //		testHC.printReport();
 //		
 		//TODO shift a = 7
+		testHC.testCyclic(5);
+		
 		//TODO old hash code
 		
 		System.out.println("\nProgramme finished");
