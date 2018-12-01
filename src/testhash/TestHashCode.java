@@ -15,11 +15,12 @@ import java.util.Scanner;
 public class TestHashCode {
 	private int [] wordHashes;
 	private ArrayList<String> words;
-	private static final int SIZE = 235900;
+	private static final int TABLE_SIZE = 235003;	//Prime
+	private static final int LIST_SIZE = 235900;
+	private static final int P = 100030001;
 	
 	public TestHashCode() {
-		wordHashes = new int[SIZE];
-		words = new ArrayList<String>(SIZE);
+		words = new ArrayList<String>(LIST_SIZE);
 		
 		try {
 			importWords();
@@ -45,27 +46,36 @@ public class TestHashCode {
 		char[] array = word.toCharArray();
 		int code = array[ 0 ];
 		
-		for (int i = 1; i < array.length; ++i)
-			code = (code * a) + array[i];
+		for (int i = 1; i < array.length; ++i) 
+			code = (code * a) + (int)array[i];
+		
+//		if (code < 0) System.out.println("code < 0");
 		
 		return code;
 	}
 	public int cyclicHashCode(int shift, String word) {
-		return -1;
+		int code = 0;
+		for (int i = 0;i<0;);
+		return code;
 	}
 	public int oldHashCode(String word) {
 		return -1;
 	}
 	private int compress(int code) {
-		return code % SIZE;
+		Random rand = new Random(101);
+		int a = rand.nextInt(P);
+		int b = rand.nextInt(P);
+		
+		code = Math.abs((a*code + b)%P)%TABLE_SIZE;
+		return code;
 	}
 	
-	public void testHastFunction(String f, int ashift) {
-		for (int i : wordHashes) wordHashes[i] = 0;
+	public void testHastFunction(String functionName, int ashift) {
+		wordHashes = new int[TABLE_SIZE];
 		int code = -1;
 		
 		for (String word : words) {
-			switch (f) {
+			switch (functionName) {
 			case "polyHashCode":
 				code = polyHashCode(ashift, word);
 				break;
@@ -76,6 +86,7 @@ public class TestHashCode {
 				code = oldHashCode(word);
 				break;
 			}
+			code = compress(code);
 			wordHashes[code]++;
 		}//	end while
 	}
@@ -88,8 +99,17 @@ public class TestHashCode {
 		
 		return max;
 	}
+	private int findCollisions() {
+		int count = 0;
+		for (int i : wordHashes)
+			if (i > 1)
+				count++;
+		
+		return count;
+	}
 	private void printReport() {
-		System.out.println("The number of collisions is : " + findMax());
+		System.out.println("The number of collisions is : " + findCollisions());
+		System.out.println("The max hits on an index is : " + findMax());
 	}
 	
 //	public void testImportWords() {
@@ -104,8 +124,25 @@ public class TestHashCode {
 		TestHashCode testHC = new TestHashCode();
 		
 		//	TODO call the hashcode methods
+		//TODO poly a = 41
+		testHC.testHastFunction("polyHashCode", 41);
+		System.out.println("With a polynomial hashCode, a = 41 :");
+		testHC.printReport();
 		
-		System.out.println("Programme finished");
+		//TODO poly a = 17
+		testHC.testHastFunction("polyHashCode", 17);
+		System.out.println("\nWith a polynomial hashCode, a = 17 :");
+		testHC.printReport();
+		
+		// Trying a smaller prime
+		testHC.testHastFunction("polyHashCode", 11);
+		System.out.println("\nWith a polynomial hashCode, a = 11 :");
+		testHC.printReport();
+		
+		//TODO shift a = 7
+		//TODO old hash code
+		
+		System.out.println("\nProgramme finished");
 	}
 
 }
