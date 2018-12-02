@@ -1,6 +1,6 @@
 package pqueue;
 
-public interface PriorityQueue<E> extends Comparable<E> {
+public interface PriorityQueue<E> {
 	/**
 	 * Returns the number of items in the priority queue.
 	 *
