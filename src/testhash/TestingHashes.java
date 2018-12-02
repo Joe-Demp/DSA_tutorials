@@ -11,6 +11,10 @@ public class TestingHashes {
 		hashMyString = TestHashCode.cyclicHashCode(5, myString);
 		System.out.println("\nThe cyclic hashcode for java is: " + hashMyString);
 		
+		myString = "avaj";
+		hashMyString = TestHashCode.cyclicHashCode(5, myString);
+		System.out.println("\nThe cyclic hashcode for avaj is: " + hashMyString);
+		
 		hashMyString = TestHashCode.oldHashCode(myString);
 		System.out.println("\nThe old hashcode for java is: " + hashMyString);
 		
